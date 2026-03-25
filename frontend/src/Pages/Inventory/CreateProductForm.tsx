@@ -183,7 +183,7 @@ export default function CreateProductForm() {
                         <div className="flex gap-3 pt-6">
                             <button
                                 type="submit"
-                                className="flex-1 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-medium py-3 rounded-lg transition transform hover:scale-105 cursor-pointer shadow-sm"
+                                className="flex-1 bg-linear-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-medium py-3 rounded-lg transition transform hover:scale-105 cursor-pointer shadow-sm"
                             >
                                 💾 Guardar Producto
                             </button>
