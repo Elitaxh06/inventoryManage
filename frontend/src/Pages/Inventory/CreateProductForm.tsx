@@ -4,14 +4,20 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const categories = [
-    { id: 1, name: "Cuadernos y Blocks" },
-    { id: 2, name: "Agendas" },
-    { id: 3, name: "Hojas" },
-    { id: 4, name: "Escritura" },
-    { id: 5, name: "Accesorios Escolares" },
-    { id: 6, name: "Libros" },
-    { id: 7, name: "Oficina" },
-    { id: 8, name: "Paquetes / Kits" },
+    // { id: 1, name: "Cuadernos y Blocks" },
+    // { id: 2, name: "Agendas" },
+    // { id: 3, name: "Hojas" },
+    // { id: 4, name: "Escritura" },
+    // { id: 5, name: "Accesorios Escolares" },
+    // { id: 6, name: "Libros" },
+    { id: 8, name: "Oficina" },
+    { id: 9, name: "Paquetes / Kits" },
+
+    { id: 10, name: "Ropa niños" },
+    { id: 11, name: "Ropa adultos" },
+    { id: 12, name: "Accesorios / varios" },
+    { id: 13, name: "Camisetas Tematicas" },
+    { id: 14, name: "Articulos escolares" },
 ]
 
 export default function CreateProductForm() {
