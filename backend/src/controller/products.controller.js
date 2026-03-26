@@ -121,10 +121,10 @@ export const createProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
     try {
-        const { producto_id } = req.body;
+        const { id } = req.params;
 
         // Validación básica
-        if (!producto_id) {
+        if (!id) {
             return res.status(400).json({
                 resultadoTipo: "warning",
                 resultadoTexto: "El ID del producto es requerido",
@@ -133,7 +133,7 @@ export const deleteProduct = async (req, res) => {
         }
 
         const { data, error } = await supabase.rpc('fn_delete_product', {
-            p_producto_id: producto_id
+            p_producto_id: parseInt(id)
         });
 
         if (error) {

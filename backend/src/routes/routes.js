@@ -5,6 +5,6 @@ const routes = Router()
 
 routes.get("/read/products", readProducts)
 routes.post("/create/product", createProduct)
-routes.delete("/delete/product", deleteProduct)
+routes.delete("/delete/product/:id", deleteProduct)
 
 export default routes;

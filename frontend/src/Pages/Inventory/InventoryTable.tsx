@@ -1,7 +1,8 @@
-import { readProducts } from "../../service/Product"
+import { deleteProduct, readProducts } from "../../service/Product"
 import type { Product } from "../../types/products.type";
 import { useState, useEffect, useMemo } from "react";
 import { Search, Filter, Package, AlertTriangle, CheckCircle, Edit3, Trash2 } from 'lucide-react';
+import Swal from "sweetalert2";
 
 export default function InventoryTable() {
   const [products, setProducts] = useState<Product[]>([])
@@ -42,15 +43,25 @@ export default function InventoryTable() {
     })
   }, [products, searchTerm, stockFilter, categoryFilter])
 
-  const handleEditProduct = (product: Product) => {
-    console.log("Editar producto", product.producto_id)
-    alert(`Editar producto ${product.producto_id} - ${product.nombre}`)
+
+  const handleEditProduct = () => {
+    Swal.fire({
+      icon:"info",
+      titleText: "Para su información",
+      text: "Esta funcion no esta disponible de momento"
+    })
   }
 
-  const handleDeleteProduct = (product: Product) => {
-    const confirmar = window.confirm(`¿Eliminar producto ${product.nombre}?`)
-    if (!confirmar) return
-    setProducts(prev => prev.filter(item => item.producto_id !== product.producto_id))
+  const handleDeleteProduct = async(id:number) => {
+      const result = await deleteProduct(id)
+      if(result){
+          Swal.fire({
+              icon:"success",
+              titleText: "Para su información",
+              text: result.resultadoTexto
+          })
+          initialData()
+      }
   }
 
   // Obtener categorías únicas
@@ -58,15 +69,6 @@ export default function InventoryTable() {
     const uniqueCategories = [...new Set(products.map(p => p.categoria_productos_id))]
     return uniqueCategories.sort((a, b) => a - b)
   }, [products])
-
-  if(loading){
-    return (
-      <div className="flex items-center justify-center min-h-100">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-        <span className="ml-3 text-gray-600">Cargando productos...</span>
-      </div>
-    )
-  }
 
   if(loading){
     return (
@@ -256,7 +258,7 @@ export default function InventoryTable() {
             {/* Card Footer - Actions */}
             <div className="p-4 border-t border-gray-100 flex gap-2">
               <button
-                onClick={() => handleEditProduct(product)}
+                onClick={() => handleEditProduct()}
                 type="button"
                 className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 transition font-medium text-sm"
               >
@@ -264,7 +266,7 @@ export default function InventoryTable() {
                 <span>Editar</span>
               </button>
               <button
-                onClick={() => handleDeleteProduct(product)}
+                onClick={() => handleDeleteProduct(product.producto_id)}
                 type="button"
                 className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-red-50 text-red-700 hover:bg-red-100 transition font-medium text-sm"
               >

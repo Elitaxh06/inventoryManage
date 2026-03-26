@@ -2,10 +2,11 @@
 import type { ProductResponse } from "../types/products.type";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { products_url } from "../enviroments/enviroments";
 
 export const readProducts = async (): Promise<ProductResponse | null> => {
     try{
-        const { data } = await axios.get<ProductResponse>("http://localhost:3001/api/read/products",
+        const { data } = await axios.get<ProductResponse>(products_url.read_products,
             {
                 headers: {
                     "Content-Type": "application/json"
@@ -96,4 +97,38 @@ export const createProduct = async ({
         return null
     }   
 
+}
+
+export const deleteProduct = async (productId: number): Promise<ProductResponse | null> => {
+    try{
+        const { data } = await axios.delete<ProductResponse>(products_url.delete_product + productId,
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        );  
+
+        if(data.resultadoTipo === 'error' || data.resultadoTipo === 'warning'){
+            Swal.fire({
+                icon:"info",
+                titleText: "Para su información",
+                text: data.resultadoTexto
+            })
+        }
+
+        if(data.resultadoTipo === 'success'){
+            return data
+        }
+
+        return null
+    }catch(err){
+        console.log('Error al borrar el producto', {error: err})
+        Swal.fire({
+            icon:"error",
+            titleText: "Para su información",
+            text: "Error al borrar el producto"
+        })
+        return null
+    }   
 }
