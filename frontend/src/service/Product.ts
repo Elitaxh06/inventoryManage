@@ -58,7 +58,7 @@ export const createProduct = async ({
     p_categoria_productos_id
 }: ProductObject): Promise<ProductResponse | null> => {
     try{
-        const { data } = await axios.post<ProductResponse>("http://localhost:3001/api/create/product",
+        const { data } = await axios.post<ProductResponse>(products_url.create_product,
             {
                 p_nombre,
                 p_precio,
